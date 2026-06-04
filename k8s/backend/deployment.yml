@@ -1,0 +1,34 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata: 
+  name: backend
+  namespace: airpollution
+spec:
+  repilcas: 1
+  selector: 
+    matchLabels:
+      app: backend
+  template: 
+    metadata:
+      labels: 
+        app: backend
+    spec: 
+      containers:
+      - name: container 
+        image: arpanel/apap-backend
+        ports: 
+          - containerPort: 8080
+        env: 
+          - name: SPRING_DATA_MONGODB_URI
+            valueFrom: 
+              configMapKeyRef: 
+                name: configmap
+                key: mongo_uri 
+        resources: 
+          requests: 
+            memory: "128Mi"
+            cpu: "100m"
+          limits: 
+            memory: "256Mi"
+            cpu: "200m"
+          

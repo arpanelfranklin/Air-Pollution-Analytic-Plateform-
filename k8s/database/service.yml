@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata: 
+  name: mongo-service
+  namespace: airpollution 
+spec: 
+  selector: 
+    app: mongo
+  ports: 
+    - targetPort: 27017
+      protocol: TCP 
+      port: 27017
+  type: ClusterIP

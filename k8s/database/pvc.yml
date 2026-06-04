@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim 
+apiVersion: v1
+metadata: 
+  name: mongo-pvc 
+  namespace: airpollution 
+spec: 
+  resources: 
+    requests: 
+      storage: 5Gi
+  storageClassName: mongo-storage
+  accessModes: 
+      - ReadWriteOnce
+
+    

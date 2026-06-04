@@ -1,0 +1,26 @@
+kind: Job 
+apiVersion: batch/v1
+metadata: 
+  name: etl-job
+  namespace: airpollution
+spec: 
+  completions: 1
+  parallelism: 1
+  backoffLimit: 3
+  template: 
+    metadata: 
+      name: etl-pipeline
+      labels: 
+        app: etl-pipeline
+    spec: 
+      containers: 
+        - name: etl-pipeline 
+          imagePullPolicy: Always 
+          image: arpanel/apap-etl-pipeline
+          env:
+          - name: SPRING_DATA_MONGODB_URI
+            valueFrom:
+              secretKeyRef:
+                name: secret
+                key: mongo-uri
+      restartPolicy: Never 
